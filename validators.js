@@ -29,13 +29,9 @@ export const isBirthMonthValid = function (input) {
   return true;
 };
 
-export const isBirthDayValid = function (input, year, month) {
+export const isBirthDayValid = function (input) {
   let numValue = Number(input);
-  if (
-    !Number.isInteger(numValue) ||
-    numValue < 1 ||
-    numValue > new Date(year, month, 0).getDate()
-  ) {
+  if (!Number.isInteger(numValue) || numValue < 1 || numValue > 31) {
     return false;
   }
   return true;

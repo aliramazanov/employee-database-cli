@@ -7,19 +7,7 @@ import readline from "readline";
 
 import { loadData, writeData } from "./data.js";
 import { getExchangeData, getSalary } from "./currency.js";
-import {
-  isStringInputValid,
-  isEmailValid,
-  isBirthYearValid,
-  isBirthMonthValid,
-  isBirthDayValid,
-  isStartYearValid,
-  isStartMonthValid,
-  isStartDayValid,
-  isBooleanInputValid,
-  isSalaryInputValid,
-  isCurrencyCodeValid,
-} from "./helpers.js";
+import * as validators from "./validators.js";
 
 dotenv.config();
 
@@ -111,54 +99,54 @@ const addEmployees = async () => {
 
   employee.id = getNextEmployeeID();
 
-  employee.firstName = getInput("First Name: ", isStringInputValid);
-  employee.lastName = getInput("Last Name: ", isStringInputValid);
-  employee.email = getInput("Email: ", isEmailValid);
+  employee.firstName = getInput("First Name: ", validators.isStringInputValid);
+  employee.lastName = getInput("Last Name: ", validators.isStringInputValid);
+  employee.email = getInput("Email: ", validators.isEmailValid);
 
   let dateBirthYear = getInput(
     "Employee Date of Birth Year(YYYY): ",
-    isBirthYearValid
+    validators.isBirthYearValid
   );
   let dateBirthMonth = getInput(
     "Employee Date of Birth Month(1-12): ",
-    isBirthMonthValid
+    validators.isBirthMonthValid
   );
   let dateBirthDay = getInput(
     "Employee Date of Birth Day(1-31): ",
-    isBirthDayValid
+    validators.isBirthDayValid
   );
 
   employee.dateBirth = `${dateBirthYear}-${dateBirthMonth}-${dateBirthDay}`;
 
   let startDateYear = getInput(
     "Employee Start Year(1990-2024): ",
-    isStartYearValid
+    validators.isStartYearValid
   );
   let startDateMonth = getInput(
     "Employee Start Date Month(1-12): ",
-    isStartMonthValid
+    validators.isStartMonthValid
   );
   let startDateDay = getInput(
     "Employee Start Date Day(1-31): ",
-    isStartDayValid
+    validators.isStartDayValid
   );
 
   employee.startDate = `${startDateYear}-${startDateMonth}-${startDateDay}`;
 
   employee.isActive = getInput(
     "Is employee active (yes or no): ",
-    isBooleanInputValid,
+    validators.isBooleanInputValid,
     (input) => input === "yes"
   );
 
   employee.salaryUSD = getInput(
     `Enter the yearly employee salary in USD: `,
-    isSalaryInputValid
+    validators.isSalaryInputValid
   );
 
   employee.localCurrency = getInput(
     `Local Currency (3 letter code): `,
-    (code) => isCurrencyCodeValid(code, currencyData)
+    (code) => validators.isCurrencyCodeValid(code, currencyData)
   );
 
   employees.push(employee);
@@ -174,6 +162,9 @@ const addEmployees = async () => {
   // Output added employee JSON
   const json = JSON.stringify(employee, null, 2);
   console.log(`Employee: ${json}`);
+
+  // Exit after adding the employee
+  process.exit(0);
 };
 
 // Search by id or name of the employye
