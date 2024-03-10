@@ -3,6 +3,8 @@
 // Importing Packages and Modules
 import dotenv from "dotenv";
 import createPrompt from "prompt-sync";
+import readline from "readline";
+
 import { loadData, writeData } from "./data.js";
 import { getExchangeData, getSalary } from "./currency.js";
 import {
@@ -20,6 +22,11 @@ import {
 } from "./helpers.js";
 
 dotenv.config();
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
 let prompt = createPrompt();
 
 // Global Variables
@@ -72,20 +79,27 @@ const listEmployees = () => {
 Employee List ----------------------------`);
   console.log("");
 
-  try {
-    employees.forEach((employee) => {
-      logEmployee(employee);
-      prompt(`
-Press Enter to continue...
-`);
-    });
-  } catch (error) {
-    console.error("Error :", error.message);
-  }
+  let currentIndex = 0;
 
-  console.log(`
+  const displayNextEmployee = () => {
+    if (currentIndex < employees.length) {
+      const employee = employees[currentIndex];
+      logEmployee(employee);
+      currentIndex++;
+
+      rl.question(
+        `\nPress Enter for next employee. Press Ctrl + C to exit.`,
+        displayNextEmployee
+      );
+    } else {
+      console.log(`
 Employee list completed ------------------
 `);
+      rl.close();
+    }
+  };
+
+  displayNextEmployee();
 };
 
 const addEmployees = async () => {
