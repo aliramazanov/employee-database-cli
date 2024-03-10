@@ -22,6 +22,7 @@ import {
 } from "./helpers.js";
 
 dotenv.config();
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -39,7 +40,7 @@ const getInput = function (promptText, validator, transformer) {
   do {
     value = prompt(promptText);
     if (validator && !validator(value)) {
-      console.error("Invalid Input");
+      console.error("Invalid input. Please try again.");
     }
   } while (validator && !validator(value));
   if (transformer) {
@@ -69,7 +70,8 @@ const logEmployee = (employee) => {
       employee.salaryUSD,
       employee.localCurrency,
       currencyData
-    )}`
+    )}
+    `
   );
 };
 
@@ -181,9 +183,10 @@ const searchById = () => {
   if (result) {
     console.log("");
     logEmployee(result);
-    result;
+    process.exit(0);
   } else {
     console.log("No results...");
+    process.exit(1);
   }
 };
 
@@ -206,11 +209,15 @@ const searchByName = () => {
     return true;
   });
 
-  results.forEach((e, idx) => {
-    console.log(` `);
-    console.log(`Search Result ------------------------ ${idx + 1}`);
-    logEmployee(e);
-  });
+  if (results.length > 0) {
+    console.log("");
+    results.forEach(logEmployee);
+    console.log("");
+    process.exit(0);
+  } else {
+    console.log("No results...");
+    process.exit(1);
+  }
 };
 
 const main = async () => {
