@@ -23,4 +23,4 @@ Before running the CLI application, make sure you have the following:
 ## Run the CLI application with the following command
 
 - node index.js **command** (the command you would like to execute)
-- Available commands: list, add, search-by-id, search-by-name
+- Available commands: list-employees, add-employee, search-by-id, search-by-name

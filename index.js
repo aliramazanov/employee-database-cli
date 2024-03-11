@@ -5,9 +5,9 @@ import dotenv from "dotenv";
 import createPrompt from "prompt-sync";
 import readline from "readline";
 
-import { loadData, writeData } from "./data.js";
-import { getExchangeData, getSalary } from "./currency.js";
-import * as validators from "./validators.js";
+import { loadData, writeData } from "./utils/handlers.js";
+import { getExchangeData, getSalary } from "./utils/currency.js";
+import * as validators from "./utils/validators.js";
 
 dotenv.config();
 
@@ -65,8 +65,7 @@ const logEmployee = (employee) => {
 
 // CLI Commands for Adding and Listing Employees
 const listEmployees = () => {
-  console.log(`
-Employee List ----------------------------`);
+  console.log(`\nEmployee List --------------------------------\n`);
   console.log("");
 
   let currentIndex = 0;
@@ -78,13 +77,11 @@ Employee List ----------------------------`);
       currentIndex++;
 
       rl.question(
-        `\nPress Enter for next employee. Press Ctrl + C to exit.`,
+        `Press Enter for next employee. Press Ctrl + C to exit.\n`,
         displayNextEmployee
       );
     } else {
-      console.log(`
-Employee list completed ------------------
-`);
+      console.log(`\nEmployee list completed ------------------\n`);
       rl.close();
     }
   };
@@ -92,9 +89,8 @@ Employee list completed ------------------
   displayNextEmployee();
 };
 
-const addEmployees = async () => {
-  console.log(`Add Employee -----------------------------`);
-  console.log("");
+const addEmployee = async () => {
+  console.log(`\nAdd Employee ---------------------------------\n`);
   let employee = {};
 
   employee.id = getNextEmployeeID();
@@ -201,9 +197,7 @@ const searchByName = () => {
   });
 
   if (results.length > 0) {
-    console.log("");
     results.forEach(logEmployee);
-    console.log("");
     process.exit(0);
   } else {
     console.log("No results...");
@@ -222,12 +216,12 @@ const main = async () => {
 
   // User Commands
   switch (command) {
-    case "list":
+    case "list-employees":
       listEmployees();
       break;
 
-    case "add":
-      addEmployees();
+    case "add-employee":
+      addEmployee();
       break;
 
     case "search-by-id":
