@@ -1,28 +1,46 @@
 // Currency Converter Function
 export const getExchangeData = async () => {
-  try {
-    const applicationHeaders = new Headers();
-    applicationHeaders.append("apikey", process.env.apikey);
-    const requestOptions = {
-      method: "GET",
-      headers: applicationHeaders,
-      redirect: "follow",
-    };
+  const maxRetries = 3;
+  const baseDelay = 1000; // Milliseconds
+  let currentDelay = baseDelay;
+  let retries = 0;
 
-    const response = await fetch(
-      "https://api.apilayer.com/exchangerates_data/latest?base=USD",
-      requestOptions
-    );
+  while (retries < maxRetries) {
+    try {
+      const applicationHeaders = new Headers();
+      applicationHeaders.append("apikey", process.env.apikey);
+      const requestOptions = {
+        method: "GET",
+        headers: applicationHeaders,
+        redirect: "follow",
+      };
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const response = await fetch(
+        "https://api.apilayer.com/exchangerates_data/latest?base=USD",
+        requestOptions
+      );
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          console.log(
+            `Rate limited. Retrying in ${currentDelay} milliseconds...`
+          );
+          await new Promise((resolve) => setTimeout(resolve, currentDelay));
+          currentDelay *= 2;
+          retries++;
+          continue;
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching currency data from API:", error.message);
+      throw error;
     }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching currency data from API:", error.message);
-    throw error;
   }
+
+  throw new Error(`Maximum retries (${maxRetries}) exceeded.`);
 };
 
 // Salary in Local Currency or USD
