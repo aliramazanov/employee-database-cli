@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import readline from "readline";
 import chalk from "chalk";
 
-import { loadData, writeData } from "./utils/handlers.js";
+import { getAllEmployees, insertEmployee } from "./database.js";
 import { getExchangeData, getSalary } from "./utils/currency.js";
 import * as validators from "./utils/validators.js";
 
@@ -40,6 +40,9 @@ const getInput = function (promptText, validator, transformer) {
 
 // Get next employee ID
 const getNextEmployeeID = () => {
+  if (employees.length === 0) {
+    return 1;
+  }
   const maxID = Math.max(...employees.map((employee) => employee.id));
   return maxID + 1;
 };
@@ -171,11 +174,9 @@ const addEmployee = async () => {
     (code) => validators.isCurrencyCodeValid(code, currencyData)
   );
 
-  employees.push(employee);
-
   // Write the updated data back to the data.json
   try {
-    await writeData(employees);
+    await insertEmployee(employee);
     console.log(chalk.green("Employee added successfully!"));
   } catch (error) {
     console.error(chalk.red("Error adding employee:"), error);
@@ -269,7 +270,7 @@ const main = async () => {
 };
 
 // Start The Application
-Promise.all([loadData(), getExchangeData()])
+Promise.all([getAllEmployees(), getExchangeData()])
   .then((results) => {
     employees = results[0];
     currencyData = results[1];
