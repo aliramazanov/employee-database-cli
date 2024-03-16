@@ -25,3 +25,7 @@ Before running the CLI application, make sure you have the following:
 - node index.js **command** (the command you would like to execute)
 - Available commands: list-employees, add-employee, search-by-id, search-by-name
 - Now you can also use **npm run** followed by the command you would like to execute
+
+## SQLite Database
+
+- Employee data is now stored in an SQLite database (data.sqlite3).
