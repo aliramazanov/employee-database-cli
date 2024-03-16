@@ -1,8 +1,8 @@
-import sqlite3 from "sqlite3";
-import { open } from "sqlite";
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
 
 const createTable = async (db) => {
-  let query = `CREATE TABLE IF NOT EXISTS employees (
+  const query = `CREATE TABLE IF NOT EXISTS employees (
       id data_type PRIMARY KEY,
       email data_type TEXT NOT NULL,
       firstName data_type TEXT NOT NULL,
@@ -13,14 +13,14 @@ const createTable = async (db) => {
       isActive INTEGER
   )`;
 
-  return await db.run(query);
+  return db.run(query);
 };
 
 let _db;
 
 const getConnection = async () => {
   if (!_db) {
-    _db = await open({ filename: "data.sqlite3", driver: sqlite3.Database });
+    _db = await open({ filename: 'data.sqlite3', driver: sqlite3.Database });
     await createTable(_db);
   }
   return _db;
@@ -35,7 +35,7 @@ const closeConnection = async () => {
 
 export const getAllEmployees = async () => {
   const db = await getConnection();
-  const rows = await db.all(`SELECT * FROM employees`);
+  const rows = await db.all('SELECT * FROM employees');
   const employees = rows.map((r) => {
     r.isActive = Boolean(r.isActive);
     return r;
@@ -70,5 +70,4 @@ export const insertEmployee = async (employee) => {
   const db = await getConnection();
   await db.run(insertQuery, values);
   await closeConnection();
-  return;
 };
