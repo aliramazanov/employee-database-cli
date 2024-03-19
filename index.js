@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import readline from 'readline';
 import chalk from 'chalk';
 
-import { getAllEmployees, insertEmployee } from './database.js';
+import { getAllEmployees, insertEmployee, deleteEmployee } from './database.js';
 import { getExchangeData, getSalary } from './utils/currency.js';
 import * as validators from './utils/validators.js';
 
@@ -230,6 +230,23 @@ const searchByName = async () => {
   }
 };
 
+// Command for deleting employee by id from database
+const deleteEmployeeById = async () => {
+  try {
+    const employeeIdToDelete = await getInput(
+      chalk.yellow('Enter the ID of the employee to delete: '),
+      validators.isStringInputValid,
+    );
+
+    await deleteEmployee(employeeIdToDelete);
+    console.log(chalk.green('Employee deleted successfully!'));
+  } catch (error) {
+    console.error(chalk.red('Error deleting employee:'), error);
+  }
+  process.exit(0);
+};
+
+// Main Function
 const main = async () => {
   // Check if a command is provided
   if (process.argv.length < 3) {
@@ -255,6 +272,10 @@ const main = async () => {
 
     case 'search-by-name':
       searchByName();
+      break;
+
+    case 'delete-employee':
+      await deleteEmployeeById();
       break;
 
     default:

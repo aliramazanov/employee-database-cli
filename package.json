@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "list-employees": "node index.js list-employees",
     "add-employee": "node index.js add-employee",
+    "delete-employee": "node index.js delete-employee",
     "search-by-id": "node index.js search-by-id",
     "search-by-name": "node index.js search-by-name"
   },

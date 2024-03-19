@@ -71,3 +71,10 @@ export const insertEmployee = async (employee) => {
   await db.run(insertQuery, values);
   await closeConnection();
 };
+
+export const deleteEmployee = async (employeeId) => {
+  const deleteQuery = 'DELETE FROM employees WHERE id = ?';
+  const db = await getConnection();
+  await db.run(deleteQuery, [employeeId]);
+  await closeConnection();
+};

@@ -3,6 +3,7 @@
 ## Features
 
 - **Add Employees**: Easily add new employees to the system with their relevant details such as name, email, date of birth, start date, and salary.
+- **Delete Employees**: Easily delete employees from the system with their id.
 - **List Employees**: View a list of all employees currently stored in the system along with their details and salaries in both USD and their local currency.
 - **Search Employees**: Search for employees by their ID or name, providing quick access to specific employee information.
 - **Currency Conversion**: Automatically converts employee salaries from USD to their local currency using real-time exchange rate data from the Exchange Rates API.
@@ -52,7 +53,7 @@ Follow these steps to set up your environment correctly:
 ## Run the CLI application with the following command
 
 - node index.js **command** (the command you would like to execute)
-- Available commands: list-employees, add-employee, search-by-id, search-by-name
+- Available commands: list-employees, add-employee, delete-employee, search-by-id, search-by-name
 - Now you can also use **npm run** followed by the command you would like to execute
 
 ## SQLite Database
