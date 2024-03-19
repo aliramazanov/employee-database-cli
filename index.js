@@ -8,6 +8,7 @@ import chalk from 'chalk';
 import { getAllEmployees, insertEmployee, deleteEmployee } from './database.js';
 import { getExchangeData, getSalary } from './utils/currency.js';
 import * as validators from './utils/validators.js';
+import exportToCSV from './utils/export.js';
 
 dotenv.config();
 
@@ -276,6 +277,11 @@ const main = async () => {
 
     case 'delete-employee':
       await deleteEmployeeById();
+      break;
+
+    case 'export-csv':
+      // Pass employees data
+      await exportToCSV(employees);
       break;
 
     default:

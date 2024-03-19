@@ -10,13 +10,15 @@
     "add-employee": "node index.js add-employee",
     "delete-employee": "node index.js delete-employee",
     "search-by-id": "node index.js search-by-id",
-    "search-by-name": "node index.js search-by-name"
+    "search-by-name": "node index.js search-by-name",
+    "export-csv": "node index.js export-csv"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.3.0",
+    "csv-writer": "^1.6.0",
     "dotenv": "^16.4.5",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"

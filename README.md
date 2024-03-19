@@ -53,10 +53,14 @@ Follow these steps to set up your environment correctly:
 ## Run the CLI application with the following command
 
 - node index.js **command** (the command you would like to execute)
-- Available commands: list-employees, add-employee, delete-employee, search-by-id, search-by-name
+- Available commands: list-employees, add-employee, delete-employee, search-by-id, search-by-name, export-csv
 - Now you can also use **npm run** followed by the command you would like to execute
 
 ## SQLite Database
+
+- Employee data will be stored in an SQLite database (data.sqlite3).
+
+## Export employees in the database to a comma separated value(CSV) file
 
 - Employee data will be stored in an SQLite database (data.sqlite3).
 
