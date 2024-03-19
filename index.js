@@ -280,8 +280,7 @@ const main = async () => {
       break;
 
     case 'export-csv':
-      // Pass employees data
-      await exportToCSV(employees);
+      await exportToCSV();
       break;
 
     default:
