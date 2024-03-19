@@ -60,10 +60,8 @@ Follow these steps to set up your environment correctly:
 
 - Employee data will be stored in an SQLite database (data.sqlite3).
 
-## Screenshots:
+## Screenshots
 
 ![Screenshot1](https://github.com/aliramazanov/employee-database-cli/assets/29664851/9902d752-5e81-4b47-9e18-2a4067e4e130)
 
 ![Screenshot2](https://github.com/aliramazanov/employee-database-cli/assets/29664851/b9f0933a-077f-4890-abc1-276a0fdabd30)
-
-
