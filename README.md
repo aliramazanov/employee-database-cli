@@ -14,6 +14,35 @@ Before running the CLI application, make sure you have the following:
 - Node.js installed on your machine.
 - API key from Exchange Rates API to fetch real-time exchange rate data.
 
+## Before running the Application
+
+Follow these steps to set up your environment correctly:
+
+1. Navigate to your debug menu and click on "Create a launch.json" file to set up your launch environment.
+
+2. Inside the generated `launch.json` file, add the following line inside the configurations:
+
+    ```json
+
+    "console": "integratedTerminal",
+
+    ```
+
+    Make sure it is placed after the `"program": "${file}"` line.
+
+3. For ESLint configurations:
+    - Create a `settings.json` file inside the `.vscode` folder.
+    - Add the following objects for linting:
+
+        ```json
+
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": "always"
+        },
+        "eslint.validate": ["javascript"]
+
+        ```
+
 ## Set up your API key
 
 1. Get your API key from Exchange Rates API.
@@ -28,4 +57,4 @@ Before running the CLI application, make sure you have the following:
 
 ## SQLite Database
 
-- Employee data is now stored in an SQLite database (data.sqlite3).
+- Employee data will be stored in an SQLite database (data.sqlite3).

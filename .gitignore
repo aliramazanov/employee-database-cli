@@ -6,3 +6,6 @@ node_modules/
 
 # Ignore SQLite database file
 *.sqlite3
+
+#Ignore VS Code files
+.vscode
